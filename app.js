@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 const app = express();
 
@@ -20,9 +20,9 @@ app.get('/todo', function(req, res) {
 })
 
 /*Edit an item from the todo list */
-.post('/todo/edit/', urlencodedParser, function(req, res) {
-    if((req.body.editid != '') && (req.body.editcontent != '')) {
-        todolist[parseInt(req.body.editid)] = req.body.editcontent;
+.post('/todo/edit/:id', urlencodedParser, function(req, res) {
+    if ((req.params.id != '') && (req.body.editContent != '')) {
+        todolist[parseInt(req.params.id)] = req.body.editContent;
     }
     res.redirect('/todo');
 })
@@ -33,7 +33,6 @@ app.get('/todo', function(req, res) {
     }
     res.redirect('/todo');
 })
-
 
 /* Redirects to the to do list if the page requested is not found */
 .use(function(req, res, next){

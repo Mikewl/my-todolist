@@ -12,7 +12,32 @@
         <h1>My todolist</h1>
         <ul>
         <% todolist.forEach(function(todo, index) { %>
-            <li><a href="/todo/delete/<%= index %>">✘</a> <%- todo %></li>
+            <li>
+                <div>
+                        <script>
+                            var editing = false;
+                            function hideDisplay(element) {
+                                if (editing) {
+                                    window.alert("Already busy editing!");
+                                    return;
+                                }
+                                editing = true;
+                                element.parentElement.style.display = "none";
+                                element.parentElement.parentElement.childNodes[3].style.display = "block";
+                            }
+                        </script>
+                    <a href="/todo/delete/<%= index %>">✘</a>
+                    <%- todo %>
+                    <a onClick="hideDisplay(this)">🖉</a>
+                </div>
+                <div hidden>
+                    <form action="/todo/edit/<%= index %>" method="post">
+                        <input type="text" name="editContent" id="editContent" autofocus value="<%- todo %>"/>
+                        <input type="submit" value="Edit"/>
+                        <input type="button" onClick="window.location.reload()" value="Cancel"/>
+                    </form>
+                </div>
+            </li>
         <% }); %>
         </ul>
 
@@ -23,16 +48,7 @@
                 <input type="submit" />
             </p>
         </form>
-        <form action="/todo/edit/" method="post">
-            <p>
-                <label for="edit">Item id</label>
-                <input type="text" name="editid" id="editid" autofocus />
-            </p>
-            <p>
-                <label for="edit">Item to edit</label>
-                <input type="text" name="editcontent" id="editcontent" autofocus />
-                <input type="submit" />
-            </p>            
-        </form>
+
     </body>
+
 </html>

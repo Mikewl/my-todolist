@@ -34,6 +34,20 @@ Visit http://localhost:8080 in your browser
 
 ### Solution
 Initially, make a test version of an edit function.
- - This test function was created as two text boxes and a button
-   + Textbox 1 for id and 2 for the new value with the used for adding the edit.
-   + This is found in the 2nd commit of the repository.
+  - This test function was created as two text boxes and a button
+    + Textbox 1 for id and 2 for the new value with the used for adding the edit.
+    + This is found in the 2nd commit of the repository.
+
+Improve on this to have a decent UI for the functionality.
+  - Editing was to be inline
+    + Replace the displayed item with a textbox which contained the item text
+  - Only one editor could be open client side
+    + No server side lock was added for editing the same item
+    + A message is displayed when opening a second editor and the opening of the new editor is blocked
+
+While the initial version worked, it was unpleasant visually and unwieldy with expecting the user to have to 
+manually enter the index and new value manually. This could have been improved with a combobox for index and
+automatically inserting the text into the editbox however I felt that this was still less pleasant than the
+current iteration. Here the item to be edited is the one clicked on, the edit button and the delete button 
+are not next to each other potentially causing misclicks deleting items and it is simple to edit or cancel
+as desired.
