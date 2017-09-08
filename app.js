@@ -19,6 +19,13 @@ app.get('/todo', function(req, res) {
     res.redirect('/todo');
 })
 
+/*Edit an item from the todo list */
+.post('/todo/edit/', urlencodedParser, function(req, res) {
+    if((req.body.editid != '') && (req.body.editcontent != '')) {
+        todolist[parseInt(req.body.editid)] = req.body.editcontent;
+    }
+    res.redirect('/todo');
+})
 /* Deletes an item from the to do list */
 .get('/todo/delete/:id', function(req, res) {
     if (req.params.id != '') {
@@ -26,6 +33,7 @@ app.get('/todo', function(req, res) {
     }
     res.redirect('/todo');
 })
+
 
 /* Redirects to the to do list if the page requested is not found */
 .use(function(req, res, next){

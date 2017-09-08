@@ -21,7 +21,7 @@ Visit http://localhost:8080 in your browser
 
 ### Tasks
 1. Add missing requirement #4 to the application
-2. Add sufficient test coverage to the application and update readme on howto run the tests
+2. Add sufficient test coverage to the application and update readme on how to run the tests
 3. Add missing requirement #5 to the application (Dockerfile and update readme with instructions)
 
 ### Bonus
@@ -33,4 +33,7 @@ Visit http://localhost:8080 in your browser
 > - Will be nice if you can git tag the tasks by number
 
 ### Solution
-Explain what you have done here and why...
+Initially, make a test version of an edit function.
+ - This test function was created as two text boxes and a button
+   + Textbox 1 for id and 2 for the new value with the used for adding the edit.
+   + This is found in the 2nd commit of the repository.
