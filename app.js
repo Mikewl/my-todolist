@@ -1,4 +1,5 @@
 const express = require('express');
+const sanitizeHtml = require('sanitize-html');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
 
@@ -11,8 +12,16 @@ app.get('/todo', function(req, res) {
     res.render('todo.ejs', { todolist, clickHandler:"func1();" });
 })
 
+app.get('/todo/error', function(req, res) {
+    res.render('error.ejs', { clickHandler:"func1();" });
+})
+
 /* Adding an item to the to do list */
 .post('/todo/add/', urlencodedParser, function(req, res) {
+    sanitised = sanitizeHtml(req.body.newtodo);
+    if (sanitised != req.body.newtodo) {
+        return res.redirect('/todo/error');
+    }
     if (req.body.newtodo != '') {
         todolist.push(req.body.newtodo);
     }
@@ -21,16 +30,18 @@ app.get('/todo', function(req, res) {
 
 /*Edit an item from the todo list */
 .post('/todo/edit/:id', urlencodedParser, function(req, res) {
-    if ((req.params.id != '') && (req.body.editContent != '')) {
+    sanitised = sanitizeHtml(req.body.editContent);
+    if (sanitised != req.body.editContent) {
+        return res.redirect('/todo/error');
+    }
+    if (req.body.editContent != '') { //remvoed id check as blank ids redirect
         todolist[parseInt(req.params.id)] = req.body.editContent;
     }
     res.redirect('/todo');
 })
 /* Deletes an item from the to do list */
 .get('/todo/delete/:id', function(req, res) {
-    if (req.params.id != '') {
-        todolist.splice(req.params.id, 1);
-    }
+    todolist.splice(req.params.id, 1); //removed as no blank id is possible, redirects
     res.redirect('/todo');
 })
 
@@ -40,3 +51,8 @@ app.get('/todo', function(req, res) {
 })
 
 .listen(8080);
+
+exports.app = app;
+exports.todolist = todolist;
+
+//"test": "nyc --reporter=text mocha"

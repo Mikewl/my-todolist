@@ -4,30 +4,31 @@
     <head>
         <title>My todolist</title>
         <style>
-            a {text-decoration: none; color: black;}
+            a {text-decoration: none; color: black; cursor: pointer}
         </style>
     </head>
 
     <body>
         <h1>My todolist</h1>
-        <ul>
+        <ul id="itemlist">
         <% todolist.forEach(function(todo, index) { %>
             <li>
                 <div>
-                        <script>
-                            var editing = false;
-                            function hideDisplay(element) {
-                                if (editing) {
-                                    window.alert("Already busy editing!");
-                                    return;
-                                }
-                                editing = true;
-                                element.parentElement.style.display = "none";
-                                element.parentElement.parentElement.childNodes[3].style.display = "block";
+                    <script>
+                        var editing = false;
+                        function hideDisplay(element) {
+                            if (editing) {
+                                window.alert("Already busy editing!");
+                                return;
                             }
-                        </script>
+                            editing = true;
+                            element.parentElement.style.display = "none";
+                            element.parentElement.parentElement.childNodes[3].style.display = "block";
+                            element.parentElement.parentElement.childNodes[3].visibility = "visible";
+                        }
+                    </script>
                     <a href="/todo/delete/<%= index %>">✘</a>
-                    <%- todo %>
+                    <%= todo %>
                     <a onClick="hideDisplay(this)">🖉</a>
                 </div>
                 <div hidden>

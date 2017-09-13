@@ -51,3 +51,15 @@ automatically inserting the text into the editbox however I felt that this was s
 current iteration. Here the item to be edited is the one clicked on, the edit button and the delete button 
 are not next to each other potentially causing misclicks deleting items and it is simple to edit or cancel
 as desired.
+
+Testing was done with mocha and chai using should for testing.
+ - Testing was done using initially just sending requests to the server
+  + This was done to ensure that the functionality is there before performing client side testing
+  + This also showed that testing for id='' was unnecessary as this would never be seen - the redirect code would handle it
+ - Client side testing was then done using puppeteer as a headless browser
+  + The ui functionality was tested apart from clicking the submit button and delete buttons as the functionality is the same as the requests
+ - nyc was used to provide coverage information
+
+Security was cleaned up
+ - XSS vulnerability was dealt with output side by escaping the html using `<=`
+ - XSS vulnerability was also improved by validating input
