@@ -60,6 +60,24 @@ Testing was done with mocha and chai using should for testing.
   + The ui functionality was tested apart from clicking the submit button and delete buttons as the functionality is the same as the requests
  - nyc was used to provide coverage information
 
-Security was cleaned up
+Security was cleaned up.
  - XSS vulnerability was dealt with output side by escaping the html using `<=`
  - XSS vulnerability was also improved by validating input
+
+ Finally deployment in docker was provided.
+  - Running the headless tests required that the launch options on puppeteer were changed
+  - The code was moved to the server by use of the `COPY` command over using git
+  - `node_modules` was removed to allow for a clean install of all modules on each build
+
+### Commands
+ - outside docker
+   + `npm start` starts the server
+   + `npm test` runs the tests
+ - using docker
+  + `docker build -t 'tagname' .` build the image with tagname `tagname`
+  + `docker run -p 8080:8080 'tagname'` runs the server called `tagname` and maps the port onto the host
+  + `docker run 'tagname' npm test` runs the tests inside the docker image
+
+### Docker notes
+Docker may also be run with the `-it` flag as to allow for interactive use.
+using `docker run -p 8080:8080 -it bash` will provide an interactive bash prompt for use.
